@@ -1,47 +1,34 @@
+use crate::game::GameData;
 use crate::GameState;
 use bevy::prelude::*;
 
-pub struct MenuPlugin;
+pub struct GameOverPlugin;
 
-/// This plugin is responsible for the game menu
-/// The menu is only drawn during the State `GameState::Menu` and is removed when that state is exited
-impl Plugin for MenuPlugin {
+impl Plugin for GameOverPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(OnEnter(GameState::Menu), setup_menu)
-            .add_systems(Update, click_menu_button.run_if(in_state(GameState::Menu)))
-            .add_systems(OnExit(GameState::Menu), cleanup_menu);
-    }
-}
-
-#[derive(Component, Clone)]
-struct ButtonColors {
-    normal: Color,
-    hovered: Color,
-}
-
-impl Default for ButtonColors {
-    fn default() -> Self {
-        ButtonColors {
-            normal: Color::BLACK,
-            hovered: Color::linear_rgb(0.2, 0.2, 0.2),
-        }
+        app.add_systems(OnEnter(GameState::GameOver), setup_game_over)
+            .add_systems(Update, handle_game_over_input.run_if(in_state(GameState::GameOver)))
+            .add_systems(OnExit(GameState::GameOver), cleanup_game_over);
     }
 }
 
 #[derive(Component)]
-struct Menu;
+struct GameOver;
 
 #[derive(Component)]
-struct MenuCamera;
+struct GameOverCamera;
 
 #[derive(Component)]
-struct ChangeState(GameState);
+struct RestartButton;
 
-fn setup_menu(mut commands: Commands) {
-    info!("Setting up main menu");
-    commands.spawn((Camera2d, Msaa::Off, MenuCamera));
+#[derive(Component)]
+struct MenuButton;
 
-    // Main menu container
+fn setup_game_over(mut commands: Commands, game_data: Res<GameData>) {
+    info!("Setting up game over screen");
+    commands.spawn((Camera2d, Msaa::Off, GameOverCamera));
+
+    // Game over screen container
     commands
         .spawn((
             Node {
@@ -52,39 +39,51 @@ fn setup_menu(mut commands: Commands) {
                 justify_content: JustifyContent::Center,
                 ..default()
             },
-            Menu,
+            GameOver,
         ))
         .with_children(|children| {
-            // Game title
+            // Game Over title
             children.spawn((
-                Text::new("HOPPER"),
+                Text::new("GAME OVER"),
                 TextFont {
                     font_size: 80.0,
                     ..default()
                 },
                 TextColor(Color::WHITE),
                 Node {
+                    margin: UiRect::bottom(Val::Px(30.0)),
+                    ..default()
+                },
+            ));
+
+            // Score display
+            children.spawn((
+                Text::new(format!("Time Survived: {:.1}s", game_data.time)),
+                TextFont {
+                    font_size: 32.0,
+                    ..default()
+                },
+                TextColor(Color::linear_rgb(0.8, 0.8, 0.8)),
+                Node {
                     margin: UiRect::bottom(Val::Px(20.0)),
                     ..default()
                 },
             ));
 
-            // Subtitle
             children.spawn((
-                Text::new("Lunar Lander"),
+                Text::new(format!("Final Score: {}", game_data.score)),
                 TextFont {
-                    font_size: 24.0,
+                    font_size: 32.0,
                     ..default()
                 },
-                TextColor(Color::linear_rgb(0.7, 0.7, 0.7)),
+                TextColor(Color::linear_rgb(0.8, 0.8, 0.8)),
                 Node {
-                    margin: UiRect::bottom(Val::Px(80.0)),
+                    margin: UiRect::bottom(Val::Px(60.0)),
                     ..default()
                 },
             ));
 
-            // Play button
-            let button_colors = ButtonColors::default();
+            // Restart button
             children
                 .spawn((
                     Button,
@@ -97,13 +96,12 @@ fn setup_menu(mut commands: Commands) {
                         border: UiRect::all(Val::Px(2.0)),
                         ..Default::default()
                     },
-                    BackgroundColor(button_colors.normal),
+                    BackgroundColor(Color::BLACK),
                     BorderColor(Color::WHITE),
-                    button_colors.clone(),
-                    ChangeState(GameState::Playing),
+                    RestartButton,
                 ))
                 .with_child((
-                    Text::new("PLAY"),
+                    Text::new("RESTART"),
                     TextFont {
                         font_size: 32.0,
                         ..default()
@@ -111,7 +109,7 @@ fn setup_menu(mut commands: Commands) {
                     TextColor(Color::WHITE),
                 ));
 
-            // Settings button
+            // Menu button
             children
                 .spawn((
                     Button,
@@ -123,13 +121,12 @@ fn setup_menu(mut commands: Commands) {
                         border: UiRect::all(Val::Px(2.0)),
                         ..Default::default()
                     },
-                    BackgroundColor(button_colors.normal),
+                    BackgroundColor(Color::BLACK),
                     BorderColor(Color::WHITE),
-                    button_colors,
-                    ChangeState(GameState::Settings),
+                    MenuButton,
                 ))
                 .with_child((
-                    Text::new("SETTINGS"),
+                    Text::new("MAIN MENU"),
                     TextFont {
                         font_size: 32.0,
                         ..default()
@@ -139,37 +136,37 @@ fn setup_menu(mut commands: Commands) {
         });
 }
 
-fn click_menu_button(
+fn handle_game_over_input(
     mut next_state: ResMut<NextState<GameState>>,
     mut interaction_query: Query<
-        (
-            &Interaction,
-            &mut BackgroundColor,
-            &ButtonColors,
-            Option<&ChangeState>,
-        ),
+        (&Interaction, Option<&RestartButton>, Option<&MenuButton>),
         (Changed<Interaction>, With<Button>),
     >,
+    keyboard_input: Res<ButtonInput<KeyCode>>,
 ) {
-    for (interaction, mut color, button_colors, change_state) in &mut interaction_query {
-        match *interaction {
-            Interaction::Pressed => {
-                if let Some(state) = change_state {
-                    next_state.set(state.0.clone());
-                }
-            }
-            Interaction::Hovered => {
-                *color = button_colors.hovered.into();
-            }
-            Interaction::None => {
-                *color = button_colors.normal.into();
+    // Handle button clicks
+    for (interaction, restart, menu) in interaction_query.iter_mut() {
+        if *interaction == Interaction::Pressed {
+            if restart.is_some() {
+                next_state.set(GameState::Playing);
+                return;
+            } else if menu.is_some() {
+                next_state.set(GameState::Menu);
+                return;
             }
         }
     }
+
+    // Handle keyboard shortcuts
+    if keyboard_input.just_pressed(KeyCode::Space) {
+        next_state.set(GameState::Playing);
+    } else if keyboard_input.just_pressed(KeyCode::Escape) {
+        next_state.set(GameState::Menu);
+    }
 }
 
-fn cleanup_menu(mut commands: Commands, menu: Query<Entity, With<Menu>>, cameras: Query<Entity, With<MenuCamera>>) {
-    for entity in menu.iter() {
+fn cleanup_game_over(mut commands: Commands, game_over: Query<Entity, With<GameOver>>, cameras: Query<Entity, With<GameOverCamera>>) {
+    for entity in game_over.iter() {
         commands.entity(entity).despawn();
     }
     for entity in cameras.iter() {

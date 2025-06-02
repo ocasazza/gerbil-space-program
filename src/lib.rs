@@ -2,15 +2,22 @@
 
 mod actions;
 mod audio;
+mod game;
+mod game_over;
 mod loading;
 mod menu;
-mod player;
+mod pause;
+mod settings;
+mod terrain;
 
 use crate::actions::ActionsPlugin;
 use crate::audio::InternalAudioPlugin;
+use crate::game::GamePlugin as InternalGamePlugin;
+use crate::game_over::GameOverPlugin;
 use crate::loading::LoadingPlugin;
 use crate::menu::MenuPlugin;
-use crate::player::PlayerPlugin;
+use crate::pause::PausePlugin;
+use crate::settings::SettingsPlugin;
 
 use bevy::app::App;
 #[cfg(debug_assertions)]
@@ -25,10 +32,16 @@ enum GameState {
     // During the loading State the LoadingPlugin will load our assets
     #[default]
     Loading,
-    // During this State the actual game logic is executed
-    Playing,
     // Here the menu is drawn and waiting for player interaction
     Menu,
+    // During this State the actual game logic is executed
+    Playing,
+    // Game is paused
+    Paused,
+    // Game over screen
+    GameOver,
+    // Settings menu
+    Settings,
 }
 
 pub struct GamePlugin;
@@ -40,7 +53,11 @@ impl Plugin for GamePlugin {
             MenuPlugin,
             ActionsPlugin,
             InternalAudioPlugin,
-            PlayerPlugin,
+
+            InternalGamePlugin,
+            PausePlugin,
+            SettingsPlugin,
+            GameOverPlugin,
         ));
 
         #[cfg(debug_assertions)]
