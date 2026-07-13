@@ -4289,6 +4289,7 @@ checksum = "b15813163c1d831bf4a13c3610c05c0d03b39feb07f7e09fa234dac9b15aaf39"
 [[package]]
 name = "panel-kit"
 version = "0.2.0"
+source = "git+https://github.com/ocasazza/panel-kit.git#f69c317ea7daed6bc6609382253b57dbc428a471"
 dependencies = [
  "dioxus",
  "gloo-storage",
@@ -4301,6 +4302,7 @@ dependencies = [
 [[package]]
 name = "panel-kit-core"
 version = "0.2.0"
+source = "git+https://github.com/ocasazza/panel-kit.git#f69c317ea7daed6bc6609382253b57dbc428a471"
 dependencies = [
  "serde",
 ]
