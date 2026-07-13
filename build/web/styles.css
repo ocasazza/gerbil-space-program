@@ -3,19 +3,29 @@ body, html {
 }
 
 body {
-    background-color: lightgray;
+    background-color: #000;
     margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
 .game-container {
-    width: 800px;
-    height: 600px;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.game-container.panelled {
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .lds-dual-ring {
@@ -50,4 +60,27 @@ body {
 
 #bevy {
     z-index: 2;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Dioxus UI overlay — sits on top of the Bevy canvas */
+#main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* panel-kit theme overrides for game overlay */
+#main .ws-root {
+    background: transparent;
+}
+
+#main .panel {
+    background: rgba(10, 10, 26, 0.92);
+    backdrop-filter: blur(8px);
 }

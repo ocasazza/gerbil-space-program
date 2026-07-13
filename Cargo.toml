@@ -1,5 +1,5 @@
 [package]
-name = "hopper"
+name = "gerbil-space-program"
 version = "0.1.0"
 publish = false
 authors = ["Olive Casazza <https://github.com/ocasazza>"]
@@ -35,6 +35,7 @@ strip = true
 dev = [
     "bevy/dynamic_linking",
 ]
+web-ui = []
 
 # All of Bevy's default features exept for the audio related ones (bevy_audio, vorbis), since they clash with bevy_kira_audio
 #   and android_shared_stdcxx/android-game-activity, since those are covered in `mobile`
@@ -69,12 +70,13 @@ bevy = { version = "0.16", default-features = false, features = [
     "smaa_luts",
     "sysinfo_plugin",
     "tonemapping_luts",
-    "webgl2",
+    "webgpu",
     "x11",
 ] }
 bevy_kira_audio = { version = "0.23.0", features = ["android_shared_stdcxx"] }
 bevy_asset_loader = { version = "0.23.0" }
 rand = { version = "0.8.3" }
+serde = { version = "1", features = ["derive"] }
 webbrowser = { version = "1", features = ["hardened"] }
 noise = { version = "0.9" }
 
@@ -83,6 +85,16 @@ winit = { version = "0.30", default-features = false }
 image = { version = "0.25", default-features = false }
 ## This greatly improves WGPU's performance due to its heavy use of trace! calls
 log = { version = "0.4", features = ["max_level_debug", "release_max_level_warn"] }
+
+# Dioxus + panel-kit UI (wasm only)
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+dioxus = { version = "0.6", features = ["web"] }
+panel-kit = { path = "../panel-kit" }
+gloo-timers = { version = "0.3", features = ["futures"] }
+wasm-bindgen = "0.2"
+web-sys = { version = "0.3", features = ["Document", "Element", "Event", "EventTarget", "HtmlElement", "Node", "Window"] }
+console_log = "1"
+console_error_panic_hook = "0.1"
 
 [build-dependencies]
 embed-resource = "1"

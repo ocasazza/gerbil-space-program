@@ -6,8 +6,12 @@ pub struct MenuPlugin;
 /// This plugin is responsible for the game menu
 /// The menu is only drawn during the State `GameState::Menu` and is removed when that state is exited
 impl Plugin for MenuPlugin {
-    fn build(&self, app: &mut App) {
-        app.add_systems(OnEnter(GameState::Menu), setup_menu)
+    fn build(&self, _app: &mut App) {
+        #[cfg(target_arch = "wasm32")]
+        return;
+
+        #[cfg(not(target_arch = "wasm32"))]
+        _app.add_systems(OnEnter(GameState::Menu), setup_menu)
             .add_systems(Update, click_menu_button.run_if(in_state(GameState::Menu)))
             .add_systems(OnExit(GameState::Menu), cleanup_menu);
     }
@@ -168,7 +172,11 @@ fn click_menu_button(
     }
 }
 
-fn cleanup_menu(mut commands: Commands, menu: Query<Entity, With<Menu>>, cameras: Query<Entity, With<MenuCamera>>) {
+fn cleanup_menu(
+    mut commands: Commands,
+    menu: Query<Entity, With<Menu>>,
+    cameras: Query<Entity, With<MenuCamera>>,
+) {
     for entity in menu.iter() {
         commands.entity(entity).despawn();
     }

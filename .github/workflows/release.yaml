@@ -13,8 +13,8 @@ on:
 
 env:
   # This variable is used to name release output files.
-  GAME_EXECUTABLE_NAME: hopper
-  GAME_OSX_APP_NAME: BevyGame
+  GAME_EXECUTABLE_NAME: gerbil-space-program
+  GAME_OSX_APP_NAME: GerbilSpaceProgram
 
 permissions:
   contents: write

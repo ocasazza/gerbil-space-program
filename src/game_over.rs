@@ -5,9 +5,16 @@ use bevy::prelude::*;
 pub struct GameOverPlugin;
 
 impl Plugin for GameOverPlugin {
-    fn build(&self, app: &mut App) {
-        app.add_systems(OnEnter(GameState::GameOver), setup_game_over)
-            .add_systems(Update, handle_game_over_input.run_if(in_state(GameState::GameOver)))
+    fn build(&self, _app: &mut App) {
+        #[cfg(target_arch = "wasm32")]
+        return;
+
+        #[cfg(not(target_arch = "wasm32"))]
+        _app.add_systems(OnEnter(GameState::GameOver), setup_game_over)
+            .add_systems(
+                Update,
+                handle_game_over_input.run_if(in_state(GameState::GameOver)),
+            )
             .add_systems(OnExit(GameState::GameOver), cleanup_game_over);
     }
 }
@@ -165,7 +172,11 @@ fn handle_game_over_input(
     }
 }
 
-fn cleanup_game_over(mut commands: Commands, game_over: Query<Entity, With<GameOver>>, cameras: Query<Entity, With<GameOverCamera>>) {
+fn cleanup_game_over(
+    mut commands: Commands,
+    game_over: Query<Entity, With<GameOver>>,
+    cameras: Query<Entity, With<GameOverCamera>>,
+) {
     for entity in game_over.iter() {
         commands.entity(entity).despawn();
     }

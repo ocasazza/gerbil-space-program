@@ -3,24 +3,36 @@
 
 use bevy::asset::AssetMetaCheck;
 use bevy::prelude::*;
-use bevy::window::PrimaryWindow;
+use bevy::window::{PrimaryWindow, WindowResolution};
 use bevy::winit::WinitWindows;
 use bevy::DefaultPlugins;
-use hopper::GamePlugin;
+#[cfg(target_arch = "wasm32")]
+use gerbil_space_program::launch_web_ui;
+use gerbil_space_program::GamePlugin;
 use std::io::Cursor;
 use winit::window::Icon;
 
 fn main() {
+    #[cfg(target_arch = "wasm32")]
+    launch_web_ui();
+
     App::new()
         .insert_resource(ClearColor(Color::BLACK))
         .add_plugins(
             DefaultPlugins
                 .set(WindowPlugin {
                     primary_window: Some(Window {
-                        title: "Hopper - Lunar Lander".to_string(),
+                        title: "Gerbil Space Program".to_string(),
                         // Bind to canvas included in `index.html`
                         canvas: Some("#bevy".to_owned()),
                         fit_canvas_to_parent: true,
+                        // Browser canvas already has CSS scaling. Rendering at
+                        // the host Mac's Retina factor doubled both axes even
+                        // when Chrome reported devicePixelRatio=1, quadrupling
+                        // fragment work inside the panel. Keep one backing
+                        // pixel per panel pixel on web; native retains its OS
+                        // scale factor and full-resolution window rendering.
+                        resolution: web_window_resolution(),
                         // Tells wasm not to override default event handling, like F5 and Ctrl+R
                         prevent_default_event_handling: false,
                         ..default()
@@ -35,6 +47,17 @@ fn main() {
         .add_plugins(GamePlugin)
         .add_systems(Startup, set_window_icon)
         .run();
+}
+
+fn web_window_resolution() -> WindowResolution {
+    #[cfg(target_arch = "wasm32")]
+    {
+        return WindowResolution::default().with_scale_factor_override(1.0);
+    }
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        WindowResolution::default()
+    }
 }
 
 // Sets the icon on windows and X11

@@ -6,7 +6,7 @@ ifndef DEVICE_ID
 endif
 
 run: install
-	xcrun simctl launch --console $(DEVICE) me.ocasazza.hopper
+	xcrun simctl launch --console $(DEVICE) com.ocasazza.gerbilspaceprogram
 
 boot-sim:
 	xcrun simctl boot $(DEVICE) || true

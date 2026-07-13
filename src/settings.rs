@@ -4,9 +4,16 @@ use bevy::prelude::*;
 pub struct SettingsPlugin;
 
 impl Plugin for SettingsPlugin {
-    fn build(&self, app: &mut App) {
-        app.add_systems(OnEnter(GameState::Settings), setup_settings)
-            .add_systems(Update, handle_settings_input.run_if(in_state(GameState::Settings)))
+    fn build(&self, _app: &mut App) {
+        #[cfg(target_arch = "wasm32")]
+        return;
+
+        #[cfg(not(target_arch = "wasm32"))]
+        _app.add_systems(OnEnter(GameState::Settings), setup_settings)
+            .add_systems(
+                Update,
+                handle_settings_input.run_if(in_state(GameState::Settings)),
+            )
             .add_systems(OnExit(GameState::Settings), cleanup_settings);
     }
 }
@@ -112,7 +119,11 @@ fn handle_settings_input(
     }
 }
 
-fn cleanup_settings(mut commands: Commands, settings: Query<Entity, With<Settings>>, cameras: Query<Entity, With<SettingsCamera>>) {
+fn cleanup_settings(
+    mut commands: Commands,
+    settings: Query<Entity, With<Settings>>,
+    cameras: Query<Entity, With<SettingsCamera>>,
+) {
     for entity in settings.iter() {
         commands.entity(entity).despawn();
     }

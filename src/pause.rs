@@ -4,9 +4,16 @@ use bevy::prelude::*;
 pub struct PausePlugin;
 
 impl Plugin for PausePlugin {
-    fn build(&self, app: &mut App) {
-        app.add_systems(OnEnter(GameState::Paused), setup_pause)
-            .add_systems(Update, handle_pause_input.run_if(in_state(GameState::Paused)))
+    fn build(&self, _app: &mut App) {
+        #[cfg(target_arch = "wasm32")]
+        return;
+
+        #[cfg(not(target_arch = "wasm32"))]
+        _app.add_systems(OnEnter(GameState::Paused), setup_pause)
+            .add_systems(
+                Update,
+                handle_pause_input.run_if(in_state(GameState::Paused)),
+            )
             .add_systems(OnExit(GameState::Paused), cleanup_pause);
     }
 }
@@ -126,7 +133,11 @@ fn setup_pause(mut commands: Commands) {
 fn handle_pause_input(
     mut next_state: ResMut<NextState<GameState>>,
     mut interaction_query: Query<
-        (&Interaction, Option<&ResumeButton>, Option<&PauseMenuButton>),
+        (
+            &Interaction,
+            Option<&ResumeButton>,
+            Option<&PauseMenuButton>,
+        ),
         (Changed<Interaction>, With<Button>),
     >,
     keyboard_input: Res<ButtonInput<KeyCode>>,
@@ -150,7 +161,11 @@ fn handle_pause_input(
     }
 }
 
-fn cleanup_pause(mut commands: Commands, pause_menu: Query<Entity, With<PauseMenu>>, cameras: Query<Entity, With<PauseCamera>>) {
+fn cleanup_pause(
+    mut commands: Commands,
+    pause_menu: Query<Entity, With<PauseMenu>>,
+    cameras: Query<Entity, With<PauseCamera>>,
+) {
     for entity in pause_menu.iter() {
         commands.entity(entity).despawn();
     }

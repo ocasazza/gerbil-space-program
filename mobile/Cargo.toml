@@ -9,7 +9,7 @@ name = "mobile"
 crate-type = ["staticlib", "cdylib"]
 
 [dependencies]
-hopper = { path = ".." }
+gerbil-space-program = { path = ".." }
 bevy = { version = "0.16.0", default-features = false, features = ["android-native-activity"] }
 
 [target."cfg(target_os = \"ios\")".dependencies]
@@ -19,8 +19,8 @@ objc2-avf-audio = { version = "0.3.0", features = [
 ] }
 
 [package.metadata.android]
-package = "me.ocasazza.hopper"
-apk_name = "Hopper"
+package = "com.ocasazza.gerbilspaceprogram"
+apk_name = "Gerbil Space Program"
 assets = "../assets"
 strip = "strip"
 resources = "../build/android/res"
@@ -31,4 +31,4 @@ target_sdk_version = 35
 
 [package.metadata.android.application]
 icon = "@mipmap/icon"
-label = "Hopper"
+label = "Gerbil Space Program"
