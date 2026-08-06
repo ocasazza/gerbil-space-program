@@ -74,13 +74,3 @@ body {
     z-index: 10;
     pointer-events: none;
 }
-
-/* panel-kit theme overrides for game overlay */
-#main .ws-root {
-    background: transparent;
-}
-
-#main .panel {
-    background: rgba(10, 10, 26, 0.92);
-    backdrop-filter: blur(8px);
-}
