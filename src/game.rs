@@ -51,63 +51,63 @@ const MAX_CURVE_KNOTS: usize = 192;
 impl Plugin for GamePlugin {
     fn build(&self, app: &mut App) {
         app.add_plugins(Material2dPlugin::<TrajectoryMaterial>::default())
-        .init_resource::<GameData>()
-        .init_resource::<TerrainData>()
-        .init_resource::<SimulationSettings>()
-        .init_resource::<TrajectoryCache>()
-        .add_systems(
-            OnTransition {
-                exited: GameState::Menu,
-                entered: GameState::Playing,
-            },
-            (setup_game, spawn_terrain_meshes, spawn_trajectory_visuals).chain(),
-        )
-        .add_systems(
-            OnTransition {
-                exited: GameState::GameOver,
-                entered: GameState::Playing,
-            },
-            (setup_game, spawn_terrain_meshes, spawn_trajectory_visuals).chain(),
-        )
-        .add_systems(
-            Update,
-            (
-                update_planet_orbits,
-                handle_game_input,
-                apply_maneuver_inputs,
-                update_physics,
-                update_camera,
-                update_ui,
-                check_game_over,
-                update_trajectory_meshes,
-                draw_vector_graphics,
-                sync_terrain_meshes,
-                draw_terrain_overlays,
+            .init_resource::<GameData>()
+            .init_resource::<TerrainData>()
+            .init_resource::<SimulationSettings>()
+            .init_resource::<TrajectoryCache>()
+            .add_systems(
+                OnTransition {
+                    exited: GameState::Menu,
+                    entered: GameState::Playing,
+                },
+                (setup_game, spawn_terrain_meshes, spawn_trajectory_visuals).chain(),
             )
-                .chain()
-                .run_if(in_state(GameState::Playing)),
-        )
-        .add_systems(
-            OnTransition {
-                exited: GameState::Playing,
-                entered: GameState::GameOver,
-            },
-            cleanup_game,
-        )
-        .add_systems(
-            OnTransition {
-                exited: GameState::Playing,
-                entered: GameState::Menu,
-            },
-            cleanup_game,
-        )
-        .add_systems(
-            OnTransition {
-                exited: GameState::Paused,
-                entered: GameState::Menu,
-            },
-            cleanup_game,
-        );
+            .add_systems(
+                OnTransition {
+                    exited: GameState::GameOver,
+                    entered: GameState::Playing,
+                },
+                (setup_game, spawn_terrain_meshes, spawn_trajectory_visuals).chain(),
+            )
+            .add_systems(
+                Update,
+                (
+                    update_planet_orbits,
+                    handle_game_input,
+                    apply_maneuver_inputs,
+                    update_physics,
+                    update_camera,
+                    update_ui,
+                    check_game_over,
+                    update_trajectory_meshes,
+                    draw_vector_graphics,
+                    sync_terrain_meshes,
+                    draw_terrain_overlays,
+                )
+                    .chain()
+                    .run_if(in_state(GameState::Playing)),
+            )
+            .add_systems(
+                OnTransition {
+                    exited: GameState::Playing,
+                    entered: GameState::GameOver,
+                },
+                cleanup_game,
+            )
+            .add_systems(
+                OnTransition {
+                    exited: GameState::Playing,
+                    entered: GameState::Menu,
+                },
+                cleanup_game,
+            )
+            .add_systems(
+                OnTransition {
+                    exited: GameState::Paused,
+                    entered: GameState::Menu,
+                },
+                cleanup_game,
+            );
     }
 }
 
@@ -170,18 +170,29 @@ enum TrajectoryVisual {
     ActiveInput,
 }
 
-#[derive(ShaderType, Clone, Debug)]
-struct TrajectoryUniform {
-    color: Vec4,
-    half_width: f32,
-    dash_period: f32,
-    dash_duty: f32,
-    glow: f32,
-    uncertainty: f32,
-    path_index: u32,
-    sample_count: u32,
-    sample_dt: f32,
+// encase 0.10's ShaderType derive emits private layout-check helpers that
+// trigger Rust's dead-code lint even though the generated checks are valid.
+// Keep the compatibility allowance scoped to only the generated code.
+mod shader_types {
+    #![allow(dead_code)]
+
+    use super::*;
+
+    #[derive(ShaderType, Clone, Debug)]
+    pub(super) struct TrajectoryUniform {
+        pub(super) color: Vec4,
+        pub(super) half_width: f32,
+        pub(super) dash_period: f32,
+        pub(super) dash_duty: f32,
+        pub(super) glow: f32,
+        pub(super) uncertainty: f32,
+        pub(super) path_index: u32,
+        pub(super) sample_count: u32,
+        pub(super) sample_dt: f32,
+    }
 }
+
+use shader_types::TrajectoryUniform;
 
 #[derive(Asset, TypePath, AsBindGroup, Clone, Debug)]
 struct TrajectoryMaterial {
@@ -287,7 +298,7 @@ fn approach_throttle(current: f32, target: f32, dt: f32) -> f32 {
 }
 
 fn bounded_physics_step(frame_dt: f32, time_multiplier: f32) -> (u32, f32) {
-    let simulated_dt = frame_dt.max(0.0).min(MAX_REAL_FRAME_DT) * time_multiplier.max(0.0);
+    let simulated_dt = frame_dt.clamp(0.0, MAX_REAL_FRAME_DT) * time_multiplier.max(0.0);
     let substeps = (simulated_dt / PHYSICS_STEP_DT)
         .ceil()
         .clamp(1.0, MAX_PHYSICS_SUBSTEPS as f32) as u32;
@@ -776,6 +787,7 @@ struct ThrustMultiplierDisplay;
 #[derive(Component)]
 struct TimeMultiplierDisplay;
 
+#[allow(clippy::too_many_arguments)]
 fn handle_game_input(
     time: Res<Time>,
     keyboard_input: Res<ButtonInput<KeyCode>>,
@@ -1096,6 +1108,7 @@ fn update_planet_orbits(
     terrain.advance_orbits(time.delta_secs().min(MAX_REAL_FRAME_DT) * settings.time_multiplier);
 }
 
+#[allow(clippy::too_many_arguments)]
 fn update_ui(
     game_data: Res<GameData>,
     simulation_settings: Res<SimulationSettings>,
@@ -1432,6 +1445,7 @@ fn draw_vector_graphics(
     }
 }
 
+#[allow(clippy::too_many_arguments)]
 fn update_trajectory_meshes(
     time: Res<Time>,
     keyboard_input: Res<ButtonInput<KeyCode>>,

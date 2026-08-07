@@ -130,6 +130,9 @@ fn draw_assembly_projection(
     }
 }
 
+// Retained alternate render paths are useful while the modular ship art is
+// still evolving, but the assembly projection is the active renderer.
+#[allow(dead_code)]
 fn draw_modular_ship(gizmos: &mut Gizmos, pos: Vec2, rotation: Quat, ship: &GeneratedShip) {
     let v = ship.visual;
     let color = palette_color(v.palette, 0);
@@ -414,7 +417,7 @@ fn draw_modular_ship(gizmos: &mut Gizmos, pos: Vec2, rotation: Quat, ship: &Gene
             false,
         ),
     };
-    let decal_side = if v.decal % 2 == 0 { -1.0 } else { 1.0 };
+    let decal_side = if v.decal.is_multiple_of(2) { -1.0 } else { 1.0 };
     draw_polyline(
         gizmos,
         pos,
@@ -461,6 +464,7 @@ fn palette_color(palette: u8, layer: u8) -> Color {
     )
 }
 
+#[allow(dead_code)]
 fn manufacturer_color(manufacturer: Manufacturer) -> Color {
     match manufacturer {
         Manufacturer::OrionDynamics => Color::srgb(0.75, 0.9, 1.0),
@@ -472,6 +476,7 @@ fn manufacturer_color(manufacturer: Manufacturer) -> Color {
     }
 }
 
+#[allow(dead_code)]
 fn rarity_color(rarity: Rarity) -> Color {
     match rarity {
         Rarity::Common => Color::srgb(0.75, 0.75, 0.75),
@@ -482,6 +487,7 @@ fn rarity_color(rarity: Rarity) -> Color {
     }
 }
 
+#[allow(dead_code)]
 fn draw_orion_ship(gizmos: &mut Gizmos, pos: Vec2, rotation: Quat, ship: &GeneratedShip) {
     let color = Color::srgb(0.75, 0.9, 1.0);
     draw_polyline(
@@ -512,6 +518,7 @@ fn draw_orion_ship(gizmos: &mut Gizmos, pos: Vec2, rotation: Quat, ship: &Genera
     draw_hardpoints(gizmos, pos, rotation, ship, color);
 }
 
+#[allow(dead_code)]
 fn draw_voidforge_ship(gizmos: &mut Gizmos, pos: Vec2, rotation: Quat, ship: &GeneratedShip) {
     let color = Color::srgb(0.55, 0.35, 0.85);
     let body = teardrop_points(24, 18.0, 30.0);
@@ -555,6 +562,7 @@ fn draw_voidforge_ship(gizmos: &mut Gizmos, pos: Vec2, rotation: Quat, ship: &Ge
     draw_hardpoints(gizmos, pos, rotation, ship, color);
 }
 
+#[allow(dead_code)]
 fn draw_solar_ship(gizmos: &mut Gizmos, pos: Vec2, rotation: Quat, ship: &GeneratedShip) {
     let color = Color::srgb(1.0, 0.9, 0.35);
     let panel = Color::srgb(0.35, 0.75, 1.0);
@@ -609,6 +617,7 @@ fn draw_solar_ship(gizmos: &mut Gizmos, pos: Vec2, rotation: Quat, ship: &Genera
     draw_hardpoints(gizmos, pos, rotation, ship, color);
 }
 
+#[allow(dead_code)]
 fn draw_rustbelt_ship(gizmos: &mut Gizmos, pos: Vec2, rotation: Quat, ship: &GeneratedShip) {
     let color = Color::srgb(0.95, 0.55, 0.25);
     draw_polyline(
@@ -652,6 +661,7 @@ fn draw_rustbelt_ship(gizmos: &mut Gizmos, pos: Vec2, rotation: Quat, ship: &Gen
     draw_hardpoints(gizmos, pos, rotation, ship, color);
 }
 
+#[allow(dead_code)]
 fn draw_mining_ship(gizmos: &mut Gizmos, pos: Vec2, rotation: Quat, ship: &GeneratedShip) {
     let color = Color::srgb(0.72, 0.72, 0.62);
     draw_polyline(
@@ -698,6 +708,7 @@ fn draw_mining_ship(gizmos: &mut Gizmos, pos: Vec2, rotation: Quat, ship: &Gener
     draw_hardpoints(gizmos, pos, rotation, ship, color);
 }
 
+#[allow(dead_code)]
 fn draw_xenotech_ship(gizmos: &mut Gizmos, pos: Vec2, rotation: Quat, ship: &GeneratedShip) {
     let color = Color::srgb(0.2, 1.0, 0.75);
     draw_polyline(
@@ -807,6 +818,7 @@ fn draw_engine_exhaust(
     }
 }
 
+#[allow(dead_code)]
 fn draw_hardpoints(
     gizmos: &mut Gizmos,
     pos: Vec2,
@@ -841,6 +853,7 @@ fn draw_polyline(
     gizmos.linestrip_2d(world_points, color);
 }
 
+#[allow(dead_code)]
 fn teardrop_points(steps: usize, width: f32, height: f32) -> Vec<Vec2> {
     (0..steps)
         .map(|i| {

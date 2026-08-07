@@ -380,65 +380,6 @@ fn manufacturer_index(manufacturer: Manufacturer) -> u8 {
     }
 }
 
-#[cfg(test)]
-mod generation_tests {
-    use super::*;
-    use std::collections::HashSet;
-
-    #[test]
-    fn generated_fleet_has_high_visual_cardinality_and_coherent_geometry() {
-        let mut signatures = HashSet::new();
-        let mut mixed_yard_designs = 0;
-        for seed in 0..128_u64 {
-            let mut rng = rand::rngs::StdRng::seed_from_u64(seed);
-            let ship = generate_ship(&mut rng, Rarity::Rare);
-            let visual = ship.visual;
-            signatures.insert((
-                visual.archetype,
-                visual.hull,
-                visual.nose,
-                visual.cockpit,
-                visual.wings,
-                visual.engines,
-                visual.engine_count,
-                visual.section_count,
-                visual.hull_width.to_bits(),
-                visual.hull_length.to_bits(),
-                visual.wing_span.to_bits(),
-            ));
-            let yards: HashSet<_> = ship.parts.iter().map(|part| part.manufacturer).collect();
-            mixed_yard_designs += usize::from(yards.len() > 1);
-
-            assert!((2..=4).contains(&visual.section_count));
-            assert!((1..=5).contains(&visual.engine_count));
-            assert!(visual.wing_pairs <= 2);
-            assert!(visual.hull_width > 0.0 && visual.hull_length > 0.0);
-            assert!(visual.wing_span > 0.0);
-            assert!(visual.engine_length > 0.0);
-        }
-        assert!(
-            signatures.len() >= 124,
-            "visual recipes should very rarely collide"
-        );
-        assert!(
-            mixed_yard_designs >= 80,
-            "most ships should combine multiple yards"
-        );
-    }
-
-    #[test]
-    fn blueprint_is_deterministic_for_a_seeded_generator() {
-        let mut first = rand::rngs::StdRng::seed_from_u64(42);
-        let mut second = rand::rngs::StdRng::seed_from_u64(42);
-        let a = generate_ship(&mut first, Rarity::Legendary);
-        let b = generate_ship(&mut second, Rarity::Legendary);
-        assert_eq!(a.seed, b.seed);
-        assert_eq!(a.visual.hull_sections, b.visual.hull_sections);
-        assert_eq!(a.visual.palette, b.visual.palette);
-        assert_eq!(a.parts.len(), b.parts.len());
-    }
-}
-
 fn base_slot_stats(rng: &mut impl Rng, slot: PartSlot, rarity: Rarity) -> StatModifiers {
     let quality = match rarity {
         Rarity::Common => 1.0,
@@ -600,5 +541,64 @@ fn extra_rust_belt_slot(rng: &mut impl Rng) -> PartSlot {
         3 => PartSlot::Stabilizer,
         4 => PartSlot::Cockpit,
         _ => PartSlot::Hull,
+    }
+}
+
+#[cfg(test)]
+mod generation_tests {
+    use super::*;
+    use std::collections::HashSet;
+
+    #[test]
+    fn generated_fleet_has_high_visual_cardinality_and_coherent_geometry() {
+        let mut signatures = HashSet::new();
+        let mut mixed_yard_designs = 0;
+        for seed in 0..128_u64 {
+            let mut rng = rand::rngs::StdRng::seed_from_u64(seed);
+            let ship = generate_ship(&mut rng, Rarity::Rare);
+            let visual = ship.visual;
+            signatures.insert((
+                visual.archetype,
+                visual.hull,
+                visual.nose,
+                visual.cockpit,
+                visual.wings,
+                visual.engines,
+                visual.engine_count,
+                visual.section_count,
+                visual.hull_width.to_bits(),
+                visual.hull_length.to_bits(),
+                visual.wing_span.to_bits(),
+            ));
+            let yards: HashSet<_> = ship.parts.iter().map(|part| part.manufacturer).collect();
+            mixed_yard_designs += usize::from(yards.len() > 1);
+
+            assert!((2..=4).contains(&visual.section_count));
+            assert!((1..=5).contains(&visual.engine_count));
+            assert!(visual.wing_pairs <= 2);
+            assert!(visual.hull_width > 0.0 && visual.hull_length > 0.0);
+            assert!(visual.wing_span > 0.0);
+            assert!(visual.engine_length > 0.0);
+        }
+        assert!(
+            signatures.len() >= 124,
+            "visual recipes should very rarely collide"
+        );
+        assert!(
+            mixed_yard_designs >= 80,
+            "most ships should combine multiple yards"
+        );
+    }
+
+    #[test]
+    fn blueprint_is_deterministic_for_a_seeded_generator() {
+        let mut first = rand::rngs::StdRng::seed_from_u64(42);
+        let mut second = rand::rngs::StdRng::seed_from_u64(42);
+        let a = generate_ship(&mut first, Rarity::Legendary);
+        let b = generate_ship(&mut second, Rarity::Legendary);
+        assert_eq!(a.seed, b.seed);
+        assert_eq!(a.visual.hull_sections, b.visual.hull_sections);
+        assert_eq!(a.visual.palette, b.visual.palette);
+        assert_eq!(a.parts.len(), b.parts.len());
     }
 }

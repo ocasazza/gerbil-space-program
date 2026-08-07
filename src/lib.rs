@@ -1,24 +1,24 @@
 #![allow(clippy::type_complexity)]
 
 mod actions;
-mod ai;
-mod astronomy;
+pub mod ai;
+pub mod astronomy;
 mod audio;
 mod background_grid;
 mod game;
 mod game_over;
 mod gravity_field;
 mod loading;
-mod maneuver;
+pub mod maneuver;
 mod menu;
 mod minimap;
 mod pause;
-mod player;
+pub mod player;
 mod relativity;
 mod settings;
 pub mod ship_gen;
 mod terrain;
-mod trajectory_gpu;
+pub mod trajectory_gpu;
 #[cfg(target_arch = "wasm32")]
 mod ui;
 

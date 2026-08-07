@@ -5,8 +5,9 @@ use bevy::prelude::*;
 pub struct AiShip;
 
 /// Current AI behavioral state
-#[derive(Component, Clone, Debug)]
+#[derive(Component, Clone, Debug, Default)]
 pub enum AiState {
+    #[default]
     Idle,
     Patrolling {
         waypoints: Vec<Vec2>,
@@ -27,12 +28,6 @@ pub enum AiState {
         threat: Entity,
     },
     Fleeing,
-}
-
-impl Default for AiState {
-    fn default() -> Self {
-        Self::Idle
-    }
 }
 
 /// AI decision cooldown — prevents thrashing

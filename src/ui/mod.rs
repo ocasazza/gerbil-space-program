@@ -236,13 +236,6 @@ fn App() -> Element {
         }
         if data.screen == UiScreen::Playing {
             QuickRadialMenu { gesture: quick_gesture(), data }
-            if data.trajectory {
-                div { class: "trajectory-legend",
-                    span { class: "trajectory-key coast", i {} "Velocity / coast" }
-                    span { class: "trajectory-key active", i {} "Held control input" }
-                    span { class: "trajectory-key field", i {} "Prediction uncertainty" }
-                }
-            }
         }
     }
 }
@@ -1007,6 +1000,16 @@ fn telemetry_panel(data: UiSnapshot) -> Element {
                     Metric { label: "FPS", value: if data.fps > 0.0 { format!("{:.0}", data.fps) } else { "—".into() } }
                     Metric { label: "FRAME", value: if data.frame_time_ms > 0.0 { format!("{:.2} ms", data.frame_time_ms) } else { "—".into() } }
                 }
+                if data.trajectory {
+                    div { class: "telemetry-trajectory",
+                        p { class: "eyebrow", "TRAJECTORY" }
+                        div { class: "trajectory-keys",
+                            span { class: "trajectory-key coast", i {} "Velocity / coast" }
+                            span { class: "trajectory-key active", i {} "Held control input" }
+                            span { class: "trajectory-key field", i {} "Prediction uncertainty" }
+                        }
+                    }
+                }
         }
     }
 }
@@ -1465,7 +1468,8 @@ const GAME_CSS: &str = r#"
 .quick-item.slot-3 { left:50%; top:83%; }
 .quick-item.slot-4 { left:21%; top:67%; }
 .quick-item.slot-5 { left:21%; top:36%; }
-.trajectory-legend { pointer-events:none; position:fixed; z-index:9998; left:50%; bottom:15px; transform:translateX(-50%); display:flex; gap:.9rem; padding:.4rem .65rem; border:1px solid var(--line2); border-radius:3px; background:var(--panel); color:var(--dim); font-size:.55rem; }
+.telemetry-trajectory { display:flex; flex-direction:column; gap:.35rem; }
+.trajectory-keys { display:flex; flex-wrap:wrap; gap:.45rem .8rem; color:var(--dim); font-size:.55rem; }
 .trajectory-key { display:flex; align-items:center; gap:.35rem; white-space:nowrap; }
 .trajectory-key i { display:block; width:22px; height:5px; }
 .trajectory-key.coast i { background:repeating-linear-gradient(90deg,var(--blue) 0 3px,transparent 3px 7px); }

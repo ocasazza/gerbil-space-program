@@ -185,6 +185,7 @@ impl AssemblyBuilder {
         }
     }
 
+    #[allow(clippy::too_many_arguments)]
     fn add(
         &mut self,
         parent: Option<u16>,
@@ -730,8 +731,8 @@ pub fn derive_mass_properties(modules: &[RigidModule3d]) -> MassProperties3d {
     let total_mass: f32 = modules.iter().map(|m| m.dry_mass).sum();
     let mut com = [0.0; 3];
     for module in modules {
-        for axis in 0..3 {
-            com[axis] += module.dry_mass
+        for (axis, center) in com.iter_mut().enumerate() {
+            *center += module.dry_mass
                 * (module.transform.translation[axis] + module.local_center_of_mass[axis]);
         }
     }

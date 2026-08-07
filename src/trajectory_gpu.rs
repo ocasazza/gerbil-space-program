@@ -23,7 +23,8 @@ pub(crate) struct TrajectoryGpuBuffers {
     pub output: Handle<ShaderStorageBuffer>,
 }
 
-pub(crate) struct TrajectoryComputePlugin;
+/// Optional GPU-backed trajectory projection plugin.
+pub struct TrajectoryComputePlugin;
 
 impl Plugin for TrajectoryComputePlugin {
     fn build(&self, app: &mut App) {

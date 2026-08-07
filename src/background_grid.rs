@@ -70,14 +70,25 @@ impl Plugin for BackgroundGridPlugin {
 #[derive(Component)]
 struct BackgroundGrid;
 
-#[derive(ShaderType, Clone, Debug)]
-struct GridUniform {
-    gravity_bodies: [Vec4; MAX_GRAVITY_BODIES],
-    body_count: u32,
-    gravity_enabled: u32,
-    zoom: f32,
-    _padding: f32,
+// encase 0.10's ShaderType derive emits private layout-check helpers that
+// trigger Rust's dead-code lint even though the generated checks are valid.
+// Keep the compatibility allowance scoped to only the generated code.
+mod shader_types {
+    #![allow(dead_code)]
+
+    use super::*;
+
+    #[derive(ShaderType, Clone, Debug)]
+    pub(super) struct GridUniform {
+        pub(super) gravity_bodies: [Vec4; MAX_GRAVITY_BODIES],
+        pub(super) body_count: u32,
+        pub(super) gravity_enabled: u32,
+        pub(super) zoom: f32,
+        pub(super) _padding: f32,
+    }
 }
+
+use shader_types::GridUniform;
 
 #[derive(Asset, TypePath, AsBindGroup, Clone, Debug)]
 struct GridMaterial {
