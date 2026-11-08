@@ -1,0 +1,10 @@
+/private/tmp/consumers/gerbil-space-program/target-wasm/wasm32-unknown-unknown/release/deps/fixedbitset-5785ba07de621527.d: /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fixedbitset-0.5.7/src/lib.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fixedbitset-0.5.7/src/block/mod.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fixedbitset-0.5.7/src/block/default.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fixedbitset-0.5.7/src/range.rs
+
+/private/tmp/consumers/gerbil-space-program/target-wasm/wasm32-unknown-unknown/release/deps/libfixedbitset-5785ba07de621527.rlib: /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fixedbitset-0.5.7/src/lib.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fixedbitset-0.5.7/src/block/mod.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fixedbitset-0.5.7/src/block/default.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fixedbitset-0.5.7/src/range.rs
+
+/private/tmp/consumers/gerbil-space-program/target-wasm/wasm32-unknown-unknown/release/deps/libfixedbitset-5785ba07de621527.rmeta: /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fixedbitset-0.5.7/src/lib.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fixedbitset-0.5.7/src/block/mod.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fixedbitset-0.5.7/src/block/default.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fixedbitset-0.5.7/src/range.rs
+
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fixedbitset-0.5.7/src/lib.rs:
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fixedbitset-0.5.7/src/block/mod.rs:
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fixedbitset-0.5.7/src/block/default.rs:
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fixedbitset-0.5.7/src/range.rs:

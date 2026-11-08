@@ -1,0 +1,10 @@
+/private/tmp/consumers/gerbil-space-program/target-wasm/wasm32-unknown-unknown/release/deps/bevy_gilrs-ac811cb45a47c167.d: /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_gilrs-0.16.0/src/lib.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_gilrs-0.16.0/src/converter.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_gilrs-0.16.0/src/gilrs_system.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_gilrs-0.16.0/src/rumble.rs
+
+/private/tmp/consumers/gerbil-space-program/target-wasm/wasm32-unknown-unknown/release/deps/libbevy_gilrs-ac811cb45a47c167.rlib: /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_gilrs-0.16.0/src/lib.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_gilrs-0.16.0/src/converter.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_gilrs-0.16.0/src/gilrs_system.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_gilrs-0.16.0/src/rumble.rs
+
+/private/tmp/consumers/gerbil-space-program/target-wasm/wasm32-unknown-unknown/release/deps/libbevy_gilrs-ac811cb45a47c167.rmeta: /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_gilrs-0.16.0/src/lib.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_gilrs-0.16.0/src/converter.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_gilrs-0.16.0/src/gilrs_system.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_gilrs-0.16.0/src/rumble.rs
+
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_gilrs-0.16.0/src/lib.rs:
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_gilrs-0.16.0/src/converter.rs:
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_gilrs-0.16.0/src/gilrs_system.rs:
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_gilrs-0.16.0/src/rumble.rs:

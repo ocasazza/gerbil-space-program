@@ -51,63 +51,63 @@ const MAX_CURVE_KNOTS: usize = 192;
 impl Plugin for GamePlugin {
     fn build(&self, app: &mut App) {
         app.add_plugins(Material2dPlugin::<TrajectoryMaterial>::default())
-        .init_resource::<GameData>()
-        .init_resource::<TerrainData>()
-        .init_resource::<SimulationSettings>()
-        .init_resource::<TrajectoryCache>()
-        .add_systems(
-            OnTransition {
-                exited: GameState::Menu,
-                entered: GameState::Playing,
-            },
-            (setup_game, spawn_terrain_meshes, spawn_trajectory_visuals).chain(),
-        )
-        .add_systems(
-            OnTransition {
-                exited: GameState::GameOver,
-                entered: GameState::Playing,
-            },
-            (setup_game, spawn_terrain_meshes, spawn_trajectory_visuals).chain(),
-        )
-        .add_systems(
-            Update,
-            (
-                update_planet_orbits,
-                handle_game_input,
-                apply_maneuver_inputs,
-                update_physics,
-                update_camera,
-                update_ui,
-                check_game_over,
-                update_trajectory_meshes,
-                draw_vector_graphics,
-                sync_terrain_meshes,
-                draw_terrain_overlays,
+            .init_resource::<GameData>()
+            .init_resource::<TerrainData>()
+            .init_resource::<SimulationSettings>()
+            .init_resource::<TrajectoryCache>()
+            .add_systems(
+                OnTransition {
+                    exited: GameState::Menu,
+                    entered: GameState::Playing,
+                },
+                (setup_game, spawn_terrain_meshes, spawn_trajectory_visuals).chain(),
             )
-                .chain()
-                .run_if(in_state(GameState::Playing)),
-        )
-        .add_systems(
-            OnTransition {
-                exited: GameState::Playing,
-                entered: GameState::GameOver,
-            },
-            cleanup_game,
-        )
-        .add_systems(
-            OnTransition {
-                exited: GameState::Playing,
-                entered: GameState::Menu,
-            },
-            cleanup_game,
-        )
-        .add_systems(
-            OnTransition {
-                exited: GameState::Paused,
-                entered: GameState::Menu,
-            },
-            cleanup_game,
-        );
+            .add_systems(
+                OnTransition {
+                    exited: GameState::GameOver,
+                    entered: GameState::Playing,
+                },
+                (setup_game, spawn_terrain_meshes, spawn_trajectory_visuals).chain(),
+            )
+            .add_systems(
+                Update,
+                (
+                    update_planet_orbits,
+                    handle_game_input,
+                    apply_maneuver_inputs,
+                    update_physics,
+                    update_camera,
+                    update_ui,
+                    check_game_over,
+                    update_trajectory_meshes,
+                    draw_vector_graphics,
+                    sync_terrain_meshes,
+                    draw_terrain_overlays,
+                )
+                    .chain()
+                    .run_if(in_state(GameState::Playing)),
+            )
+            .add_systems(
+                OnTransition {
+                    exited: GameState::Playing,
+                    entered: GameState::GameOver,
+                },
+                cleanup_game,
+            )
+            .add_systems(
+                OnTransition {
+                    exited: GameState::Playing,
+                    entered: GameState::Menu,
+                },
+                cleanup_game,
+            )
+            .add_systems(
+                OnTransition {
+                    exited: GameState::Paused,
+                    entered: GameState::Menu,
+                },
+                cleanup_game,
+            );
     }
 }
 

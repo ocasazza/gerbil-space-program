@@ -1,0 +1,10 @@
+/private/tmp/consumers/gerbil-space-program/target-wasm/release/deps/bevy_ecs_macros-5d45251961e553cc.d: /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_ecs_macros-0.16.0/src/lib.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_ecs_macros-0.16.0/src/component.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_ecs_macros-0.16.0/src/query_data.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_ecs_macros-0.16.0/src/query_filter.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_ecs_macros-0.16.0/src/states.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_ecs_macros-0.16.0/src/world_query.rs
+
+/private/tmp/consumers/gerbil-space-program/target-wasm/release/deps/libbevy_ecs_macros-5d45251961e553cc.dylib: /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_ecs_macros-0.16.0/src/lib.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_ecs_macros-0.16.0/src/component.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_ecs_macros-0.16.0/src/query_data.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_ecs_macros-0.16.0/src/query_filter.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_ecs_macros-0.16.0/src/states.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_ecs_macros-0.16.0/src/world_query.rs
+
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_ecs_macros-0.16.0/src/lib.rs:
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_ecs_macros-0.16.0/src/component.rs:
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_ecs_macros-0.16.0/src/query_data.rs:
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_ecs_macros-0.16.0/src/query_filter.rs:
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_ecs_macros-0.16.0/src/states.rs:
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_ecs_macros-0.16.0/src/world_query.rs:

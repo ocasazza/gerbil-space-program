@@ -1,0 +1,14 @@
+/private/tmp/consumers/gerbil-space-program/target-wasm/release/deps/serde-b86a1f793bcc1989.d: /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/lib.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/integer128.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/mod.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/de.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/ser.rs /private/tmp/consumers/gerbil-space-program/target-wasm/release/build/serde-c8a61e8edae5ab7b/out/private.rs
+
+/private/tmp/consumers/gerbil-space-program/target-wasm/release/deps/libserde-b86a1f793bcc1989.rlib: /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/lib.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/integer128.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/mod.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/de.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/ser.rs /private/tmp/consumers/gerbil-space-program/target-wasm/release/build/serde-c8a61e8edae5ab7b/out/private.rs
+
+/private/tmp/consumers/gerbil-space-program/target-wasm/release/deps/libserde-b86a1f793bcc1989.rmeta: /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/lib.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/integer128.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/mod.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/de.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/ser.rs /private/tmp/consumers/gerbil-space-program/target-wasm/release/build/serde-c8a61e8edae5ab7b/out/private.rs
+
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/lib.rs:
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/integer128.rs:
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/mod.rs:
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/de.rs:
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/ser.rs:
+/private/tmp/consumers/gerbil-space-program/target-wasm/release/build/serde-c8a61e8edae5ab7b/out/private.rs:
+
+# env-dep:OUT_DIR=/private/tmp/consumers/gerbil-space-program/target-wasm/release/build/serde-c8a61e8edae5ab7b/out

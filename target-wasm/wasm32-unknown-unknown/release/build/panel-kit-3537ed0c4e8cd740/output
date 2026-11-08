@@ -1,0 +1,4 @@
+cargo:rerun-if-changed=assets/panel-kit-boot.css.in
+cargo:rerun-if-changed=assets/panel-kit.css
+cargo:rerun-if-changed=DESIGN.md
+cargo:rerun-if-changed=build.rs

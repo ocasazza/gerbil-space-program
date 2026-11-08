@@ -21,10 +21,11 @@
           overlays = [ (import rust-overlay) ];
           pkgs = import nixpkgs { inherit system overlays; };
 
-          # Bevy 0.16's dependency graph is built around the Rust 1.85-era
-          # wasm toolchain. Newer rustc versions can emit duplicate exports
-          # with the locked wasm-bindgen 0.2.99, producing invalid modules.
-          rustToolchain = pkgs.rust-bin.stable."1.85.0".default.override {
+          # panel-kit's panel-kit-grammar depends on serde-saphyr 1.3, which
+          # requires rustc 1.89. Newer rustc versions emit duplicate exports
+          # with wasm-bindgen 0.2.99, producing invalid modules, so the lock
+          # carries a wasm-bindgen release built for this rustc.
+          rustToolchain = pkgs.rust-bin.stable."1.89.0".default.override {
             targets = [ "wasm32-unknown-unknown" ];
           };
 

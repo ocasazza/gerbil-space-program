@@ -1,0 +1,11 @@
+/private/tmp/consumers/gerbil-space-program/target-wasm/wasm32-unknown-unknown/release/deps/litemap-62eb24304325aa66.d: /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/litemap-0.7.4/src/lib.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/litemap-0.7.4/src/map.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/litemap-0.7.4/src/store/mod.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/litemap-0.7.4/src/store/slice_impl.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/litemap-0.7.4/src/store/vec_impl.rs
+
+/private/tmp/consumers/gerbil-space-program/target-wasm/wasm32-unknown-unknown/release/deps/liblitemap-62eb24304325aa66.rlib: /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/litemap-0.7.4/src/lib.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/litemap-0.7.4/src/map.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/litemap-0.7.4/src/store/mod.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/litemap-0.7.4/src/store/slice_impl.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/litemap-0.7.4/src/store/vec_impl.rs
+
+/private/tmp/consumers/gerbil-space-program/target-wasm/wasm32-unknown-unknown/release/deps/liblitemap-62eb24304325aa66.rmeta: /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/litemap-0.7.4/src/lib.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/litemap-0.7.4/src/map.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/litemap-0.7.4/src/store/mod.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/litemap-0.7.4/src/store/slice_impl.rs /Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/litemap-0.7.4/src/store/vec_impl.rs
+
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/litemap-0.7.4/src/lib.rs:
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/litemap-0.7.4/src/map.rs:
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/litemap-0.7.4/src/store/mod.rs:
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/litemap-0.7.4/src/store/slice_impl.rs:
+/Users/casazza/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/litemap-0.7.4/src/store/vec_impl.rs:
